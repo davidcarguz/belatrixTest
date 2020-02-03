@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import belatrix.automation.ebay.Utilities.ChromeDriverUtil;
 import belatrix.automation.ebay.Utilities.Utilities;
+import models.ResultsModel;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 
@@ -21,6 +22,9 @@ public class EbaySearchResultPage extends PageObject {
 	private static WebDriverWait wait;
 	Actions action;
 	
+	public static ResultsModel resultsData = new ResultsModel();
+	
+	
 	private static WebElement edtBrandSearch;
 	private String edtBrandSearchClass = "x-searchable-list__textbox__aspect-Brand";
 	private WebElement chkBrand;
@@ -28,6 +32,10 @@ public class EbaySearchResultPage extends PageObject {
 	private String cmbSortByOptionsXpath = "//ul[@class=\"srp-sort__menu\"]/li/a";
 	private String cmbSortByXpath = "//div[@class=\"srp-controls--selected-value\"]";
 	private String txtProductNameClass = "s-item__title";
+	private WebElement txtTotalAmountResults;
+	private String txtTotalAmountResultsXpath = "//span[text() = \"shoes\"]/preceding-sibling::span";
+	private String txtListOfPricesXpath = "//span[@class = \"s-item__price\"]"; 
+	private String txtListOfProductsXpath = "//h3[@class = \"s-item__title\"]";
 	
 	private String brand;
 
@@ -76,7 +84,10 @@ public class EbaySearchResultPage extends PageObject {
 
 	public double[] getFirstFivePrices() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(this.txtProductNameClass)));
-		List<WebElement> rawPrices = driver.findElements(By.xpath("//span[@class = \"s-item__price\"]"));
+		List<WebElement> rawPrices = driver.findElements(By.xpath(this.txtListOfPricesXpath));
+		List<WebElement> productsList = driver.findElements(By.xpath(this.txtListOfProductsXpath));
+		resultsData.setProductsName(Utilities.getValuesFromElements(productsList));
+		resultsData.setProductsPrice(Utilities.getValuesFromElements(rawPrices));
 		double firstFivePrices[] = new double[5];
 		for(int i = 0; i < firstFivePrices.length; i++) {
 			firstFivePrices[i] = Utilities.getFormatedPrice(rawPrices.get(i).getText());
@@ -84,8 +95,11 @@ public class EbaySearchResultPage extends PageObject {
 		return firstFivePrices;
 	}
 
-	public void closeBrowser() {
-		driver.quit();
+	public void getTheTotalAmountOfResults() {
+		this.txtTotalAmountResults = driver.findElement(By.xpath(this.txtTotalAmountResultsXpath));
+		String totalAmountResults = this.txtTotalAmountResults.getText();
+		System.out.println("Cantidad de Resultados: "+totalAmountResults);
+		resultsData.setTotalAmountResult(totalAmountResults);
 		
 	}
 

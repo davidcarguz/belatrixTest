@@ -35,6 +35,7 @@ public class EbaySearchSteps {
 	@Step
 	public void filterBySize(String size) {
 		ebaySearchResultPage.selectSizeCheckbox(size);
+		ebaySearchResultPage.getTheTotalAmountOfResults();
 		
 	}
 
