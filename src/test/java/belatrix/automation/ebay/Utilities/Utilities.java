@@ -1,5 +1,10 @@
 package belatrix.automation.ebay.Utilities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
 public class Utilities {
 
 	
@@ -22,4 +27,14 @@ public class Utilities {
     	}
     	return good;
     }
+	
+	public static List<String> getValuesFromElements(List<WebElement> elementsList){
+		
+		List<String> values = new ArrayList<>();
+		
+		for(WebElement item : elementsList) {
+			values.add(item.getText());
+		}
+		return values;
+	}
 }
