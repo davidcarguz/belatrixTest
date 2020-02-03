@@ -1,5 +1,6 @@
 package belatrix.automation.ebay.pageObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import belatrix.automation.ebay.Utilities.ChromeDriverUtil;
 import belatrix.automation.ebay.Utilities.Utilities;
+import models.Product;
 import models.ResultsModel;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
@@ -23,6 +25,8 @@ public class EbaySearchResultPage extends PageObject {
 	Actions action;
 	
 	public static ResultsModel resultsData = new ResultsModel();
+	public static Product product = new Product();
+	public static List<Product> products = new ArrayList<>();
 	
 	
 	private static WebElement edtBrandSearch;
@@ -34,7 +38,7 @@ public class EbaySearchResultPage extends PageObject {
 	private String txtProductNameClass = "s-item__title";
 	private WebElement txtTotalAmountResults;
 	private String txtTotalAmountResultsXpath = "//span[text() = \"shoes\"]/preceding-sibling::span";
-	private String txtListOfPricesXpath = "//span[@class = \"s-item__price\"]"; 
+	private String txtListOfPricesXpath = "//div[@class = \"s-item__details clearfix\"]/div[1]/span[@class = \"s-item__price\"]"; 
 	private String txtListOfProductsXpath = "//h3[@class = \"s-item__title\"]";
 	
 	private String brand;
@@ -58,7 +62,6 @@ public class EbaySearchResultPage extends PageObject {
 	public void selectSizeCheckbox(String size) {
 		this.chkSize = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"cbx x-refine__multi-select-cbx\" and contains(text(),\""+size+"\")]")));
 		this.chkSize.click();
-		waitFor(2).seconds();
 		this.action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath("//h3[contains(text(),'Ancho')]"))).perform();
 		Serenity.takeScreenshot();
@@ -92,13 +95,16 @@ public class EbaySearchResultPage extends PageObject {
 		for(int i = 0; i < firstFivePrices.length; i++) {
 			firstFivePrices[i] = Utilities.getFormatedPrice(rawPrices.get(i).getText());
 		}
+		for(int j = 0; j < rawPrices.size(); j++) {
+			products.add(new Product(productsList.get(j).getText(),Utilities.getFormatedPrice(rawPrices.get(j).getText())));
+		}
+		
 		return firstFivePrices;
 	}
 
 	public void getTheTotalAmountOfResults() {
 		this.txtTotalAmountResults = driver.findElement(By.xpath(this.txtTotalAmountResultsXpath));
 		String totalAmountResults = this.txtTotalAmountResults.getText();
-		System.out.println("Cantidad de Resultados: "+totalAmountResults);
 		resultsData.setTotalAmountResult(totalAmountResults);
 		
 	}
