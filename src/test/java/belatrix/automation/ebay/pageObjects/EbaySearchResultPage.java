@@ -44,7 +44,6 @@ public class EbaySearchResultPage extends PageObject {
 	private String brand;
 
 	public void typeBrandOnSearchbox(String brand) {
-//		driver = ChromeDriverUtil.getChromeDriver();
 		driver = getDriver();
 		wait = new WebDriverWait(driver,10);
 		

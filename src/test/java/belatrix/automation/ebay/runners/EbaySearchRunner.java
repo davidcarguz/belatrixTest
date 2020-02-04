@@ -18,3 +18,4 @@ features = "src/test/resources/features/searches"
 public class EbaySearchRunner {
 
 }
+ 
