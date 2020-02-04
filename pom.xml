@@ -19,6 +19,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.version>4.12</junit.version>
 		<serenity.version>2.1.2</serenity.version>
 		<serenity-cucumber.version>1.9.51</serenity-cucumber.version>
@@ -65,7 +67,7 @@
 				<version>${failsafe.version}</version>
 				<configuration>
 					<includes>
-						<include>EbayRunner.java</include>
+						<include>EbaySearchRunner.java</include>
 					</includes>
 				</configuration>
 				<executions>
@@ -81,6 +83,16 @@
 				<groupId>net.serenity-bdd.maven.plugins</groupId>
 				<artifactId>serenity-maven-plugin</artifactId>
 				<version>${maven.serenity.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>net.serenity-bdd</groupId>
+						<artifactId>serenity-emailer</artifactId>
+						<version>2.1.0</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<reports>email</reports>
+				</configuration>
 				<executions>
 					<execution>
 						<id>serenity-reports</id>

@@ -22,8 +22,6 @@ public class EbayStartPage extends PageObject {
 	
 	public void OpenBrowserAndGoToEbay() {
 		
-//		ChromeDriverUtil.IniciarChromeDriver();
-//		driver = ChromeDriverUtil.getChromeDriver();
 		driver = getDriver();
 		driver.get("https://www.ebay.com/");
 		wait = new WebDriverWait(driver, 10);

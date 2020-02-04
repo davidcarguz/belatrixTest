@@ -1,12 +1,6 @@
 package models;
 
-import java.text.Collator;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
-import java.util.Arrays;
-
-import belatrix.automation.ebay.Utilities.Utilities;
 
 public class ResultsModel {
 	
@@ -27,12 +21,23 @@ public class ResultsModel {
 	public void setProductsPrice(List<String> productsPrice) {
 		this.productsPrice = productsPrice;
 	}
+	
+	
 
-	public void showResults() {
-		System.out.println("//==================================================================//");
-		System.out.println("Total Amount of Results: "+this.totalAmountResult);
-		Collections.sort(this.productsName, Collator.getInstance());
+	public List<String> getProductsName() {
+		return productsName;
 	}
+
+	public List<String> getProductsPrice() {
+		return productsPrice;
+	}
+
+	@Override
+	public String toString() {
+		return "Total amount of products: "+this.totalAmountResult;
+	}
+
+	
 
 	
 	
