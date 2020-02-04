@@ -10,6 +10,10 @@ public class Utilities {
 	
 	public static double getFormatedPrice(String rawPrice) {
 		
+		if(rawPrice.contains("a")) {
+			rawPrice = rawPrice.split("a")[0];
+		}
+		
         String formatedPrice = rawPrice.replaceAll("[\\s C O P $]", "");
         double numericalPrice = Double.parseDouble(formatedPrice);
         return numericalPrice;
