@@ -7,6 +7,7 @@ import models.Product;
 import java.util.Comparator;
 
 public class Hooks {
+		
 	
 	@After
 	public void afterProcedures() {

@@ -1,16 +1,21 @@
 package belatrix.automation.ebay.pageObjects;
 
+import java.util.logging.Logger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import belatrix.automation.ebay.definitions.Hooks;
 //import belatrix.automation.ebay.Utilities.ChromeDriverUtil;
 import net.serenitybdd.core.pages.PageObject;
 
 public class EbayStartPage extends PageObject {
 
+	private final static Logger LOGGER = Logger.getLogger(Hooks.class.getName());
+	
 	private static WebDriver driver;
 	
 	private static WebDriverWait wait;
@@ -30,8 +35,8 @@ public class EbayStartPage extends PageObject {
 	public void SearchForShoes() {
 		
 		edtSearchBox = wait.until(ExpectedConditions.elementToBeClickable(By.id(this.edtSearchBoxId)));
-		edtSearchBox.click();
 		edtSearchBox.sendKeys("shoes");
+		LOGGER.info("search for shoes on searchbox");
 		
 	}
 

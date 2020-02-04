@@ -2,6 +2,7 @@ package belatrix.automation.ebay.pageObjects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import belatrix.automation.ebay.Utilities.ChromeDriverUtil;
 import belatrix.automation.ebay.Utilities.Utilities;
+import belatrix.automation.ebay.definitions.Hooks;
 import models.Product;
 import models.ResultsModel;
 import net.serenitybdd.core.Serenity;
@@ -20,6 +22,8 @@ import net.serenitybdd.core.pages.PageObject;
 
 public class EbaySearchResultPage extends PageObject {
 
+	private final static Logger LOGGER = Logger.getLogger(Hooks.class.getName());
+	
 	private static WebDriver driver;
 	private static WebDriverWait wait;
 	Actions action;
@@ -78,6 +82,7 @@ public class EbaySearchResultPage extends PageObject {
 		for(WebElement item: options) {
 			if(item.getAttribute("innerHTML").contains(option)) {
 				item.click();
+				LOGGER.info("Option has been found and it is selected for sorting products");
 				break;
 			}
 		}
@@ -89,15 +94,18 @@ public class EbaySearchResultPage extends PageObject {
 		List<WebElement> rawPrices = driver.findElements(By.xpath(this.txtListOfPricesXpath));
 		List<WebElement> productsList = driver.findElements(By.xpath(this.txtListOfProductsXpath));
 		resultsData.setProductsName(Utilities.getValuesFromElements(productsList));
+		LOGGER.info("fills the products list");
 		resultsData.setProductsPrice(Utilities.getValuesFromElements(rawPrices));
+		LOGGER.info("fills the prices list");
 		double firstFivePrices[] = new double[5];
 		for(int i = 0; i < firstFivePrices.length; i++) {
 			firstFivePrices[i] = Utilities.getFormatedPrice(rawPrices.get(i).getText());
 		}
+		LOGGER.info("gets first 5 products");
 		for(int j = 0; j < rawPrices.size(); j++) {
 			products.add(new Product(productsList.get(j).getText(),Utilities.getFormatedPrice(rawPrices.get(j).getText())));
 		}
-		
+		LOGGER.info("fills in the products model");
 		return firstFivePrices;
 	}
 
