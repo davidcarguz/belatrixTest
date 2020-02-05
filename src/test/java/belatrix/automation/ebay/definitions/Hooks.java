@@ -23,13 +23,13 @@ public class Hooks {
 		EbaySearchResultPage.products.sort(Comparator.comparing(Product::getName));
 		System.out.println("\n//--------------Products Sort by Name Ascendant--------------//\n");
 		for(int j=0; j < EbaySearchResultPage.products.size();j++) {
-			System.out.println(EbaySearchResultPage.products.get(j).getName());
+			System.out.println(EbaySearchResultPage.products.get(j).getName()+System.lineSeparator());
 		}
 		
 		EbaySearchResultPage.products.sort(Comparator.comparing(Product::getPrice));
 		System.out.println("\n//--------------Products Sort by Price Descendant--------------//\n");
 		for(int k=EbaySearchResultPage.products.size()-1; k >= 0;k--) {
-			System.out.println(EbaySearchResultPage.products.get(k).toString());
+			System.out.println(EbaySearchResultPage.products.get(k).toString()+System.lineSeparator());
 		}
 		
 	}
