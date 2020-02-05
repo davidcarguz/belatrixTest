@@ -12,9 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-//import belatrix.automation.ebay.Utilities.ChromeDriverUtil;
 import belatrix.automation.ebay.Utilities.Utilities;
-import belatrix.automation.ebay.definitions.Hooks;
 import models.Product;
 import models.ResultsModel;
 import net.serenitybdd.core.Serenity;
@@ -22,7 +20,7 @@ import net.serenitybdd.core.pages.PageObject;
 
 public class EbaySearchResultPage extends PageObject {
 
-	private final static Logger LOGGER = Logger.getLogger(Hooks.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(EbaySearchResultPage.class.getName());
 	
 	private static WebDriver driver;
 	private static WebDriverWait wait;
