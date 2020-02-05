@@ -13,7 +13,7 @@ features = "src/test/resources/features/searches"
 ,tags = "@shoes_search"
 ,monochrome = true
 ,snippets = SnippetType.CAMELCASE
-		)
+)
 
 public class EbaySearchRunner {
 
