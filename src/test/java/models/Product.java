@@ -4,6 +4,7 @@ public class Product {
 
 	private String name;
 	private double price;
+	private String totalAmountResult;
 
 	public Product() {
 	}
@@ -11,6 +12,14 @@ public class Product {
 	public Product(String name, double price) {
 		this.name = name;
 		this.price = price;
+	}
+
+	public void setTotalAmountResult(String totalAmountResult) {
+		this.totalAmountResult = totalAmountResult;
+	}
+
+	public String getTotalAmountResult() {
+		return totalAmountResult;
 	}
 
 	public String getName() {
